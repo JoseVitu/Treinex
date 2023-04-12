@@ -1,5 +1,7 @@
 package com.example.treinex;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +20,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -127,38 +134,69 @@ public class FormLogin extends AppCompatActivity {
 
 
     //problema nao solucionado
-    private void alertRedefinirSenha(){
+    private void alertRedefinirSenha() {
+        AlertDialog.Builder redefinirSenha = new AlertDialog.Builder(this);
+        redefinirSenha.setTitle("Redefinir senha");
+        redefinirSenha.setMessage("Insira seu endereço de e-mail: ");
 
-            AlertDialog.Builder redefinirSenha = new AlertDialog.Builder(this);
-            redefinirSenha.setTitle("Redefinir senha");
-            redefinirSenha.setMessage("Insira seu endereço de e-mail: ");
-            redefinirSenha.setCancelable(false);
-            EditText campoDigitarEmail = new EditText(this);
-            LinearLayout.LayoutParams linearLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            redefinirSenha.setView(campoDigitarEmail);
-            campoDigitarEmail.setLayoutParams(linearLayout);
-            redefinirSenha.setNegativeButton("Cancelar", null);
-            redefinirSenha.setPositiveButton("Recuperar senha", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    FirebaseAuth.getInstance().sendPasswordResetEmail(campoDigitarEmail.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
+        // Define o fundo da caixa de diálogo como azul (#21409a)
+        redefinirSenha.setIcon(R.drawable.ic_alert);
+        redefinirSenha.setCancelable(false);
 
-                            Toast.makeText(getBaseContext(), "E-mail enviado", Toast.LENGTH_LONG).show();
+        // Cria o campo para o usuário digitar o e-mail
+        EditText campoDigitarEmail = new EditText(this);
+        campoDigitarEmail.setHint("Digite seu e-mail");
+        campoDigitarEmail.setTextColor(Color.WHITE);
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getBaseContext(), "E-mail errado", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            });
-            redefinirSenha.create().show();
+        // Define a cor de fundo do campo como azul (#21409a)
+        campoDigitarEmail.setBackgroundColor(Color.parseColor("#21409a"));
 
+        // Define a cor do cursor e das barras de seleção do campo como branco (#FFFFFF)
+        campoDigitarEmail.setHighlightColor(Color.WHITE);
+        campoDigitarEmail.setHintTextColor(Color.WHITE);
 
+        // Define as margens e o padding do campo
+        LinearLayout.LayoutParams linearLayout = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        linearLayout.setMargins(24, 24, 24, 0);
+        campoDigitarEmail.setPadding(16, 16, 16, 16);
+        campoDigitarEmail.setLayoutParams(linearLayout);
+
+        // Define o campo de texto na caixa de diálogo
+        redefinirSenha.setView(campoDigitarEmail);
+
+        // Define o botão de cancelar
+        redefinirSenha.setNegativeButton("Cancelar", null);
+
+        // Define o botão de recuperar senha
+        redefinirSenha.setPositiveButton("Recuperar senha", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                FirebaseAuth.getInstance().sendPasswordResetEmail(campoDigitarEmail.getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getBaseContext(), "E-mail enviado", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getBaseContext(), "E-mail errado", Toast.LENGTH_LONG).show();
+                            }
+                        });
+            }
+        });
+
+        // Cria e mostra a caixa de diálogo
+        AlertDialog alertDialog = redefinirSenha.create();
+        alertDialog.show();
+
+        // Define a cor do texto dos botões como branco (#FFFFFF)
+        Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(Color.parseColor("#21409a"));
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        positiveButton.setTextColor(Color.parseColor("#21409a"));
     }
 
 

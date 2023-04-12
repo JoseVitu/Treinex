@@ -4,6 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".TelaCriarTurma">
+    <TextView
+        android:id="@+id/text_criar_turma"
+        android:text="@string/criar_turma_text"
+        style="@style/TextForgotPass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        />
 
+    <View
+        android:id="@+id/container_criar_turma"
+        style="@style/ContainerCriarTurma"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/container_criar_turma"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_criar_turma" />
+
+    <TextView
+        android:id="@+id/titulo_text"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/container_criar_turma"
+        app:layout_constraintStart_toStartOf="@id/container_criar_turma"
+        app:layout_constraintEnd_toEndOf="@id/container_criar_turma"
+        android:text="Título do Treinamento:"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="120dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/campo_titulo_trein"
+        style="@style/campopadrao"
+        app:layout_constraintTop_toBottomOf="@id/titulo_text"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+
+        />
+
+    <TextView
+        android:id="@+id/total_participantes"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/campo_titulo_trein"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+        android:text="Total Participantes:"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/campo_total_participantes"
+        style="@style/campopadrao"
+        app:layout_constraintTop_toBottomOf="@id/total_participantes"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+        android:inputType="number"
+        />
+
+    <TextView
+        android:id="@+id/local_treinamento"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/campo_total_participantes"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+        android:text="Local treinamento:"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/campo_local_treinamento"
+        style="@style/campopadrao"
+        app:layout_constraintTop_toBottomOf="@id/local_treinamento"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+
+        />
+    <TextView
+        android:id="@+id/data_treinamento"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/campo_local_treinamento"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+        android:text="Data do treinamento:"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/campo_data_treinamento"
+        style="@style/campopadrao"
+        app:layout_constraintTop_toBottomOf="@id/data_treinamento"
+        app:layout_constraintStart_toStartOf="@id/titulo_text"
+        app:layout_constraintEnd_toEndOf="@id/titulo_text"
+        android:inputType="date"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_entrar"
+        style="@style/Button"
+        android:text="Iniciar Turma"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container_criar_turma"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
